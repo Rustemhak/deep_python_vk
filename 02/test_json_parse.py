@@ -16,8 +16,6 @@ def keyword_callback_mock(count: list):
     return mock_func
 
 
-# keyword_callback, json_str: str, required_fields=None, keywords=None
-
 def test_parse_json_main():
     """Implementation of the case from the task"""
     count = [0]

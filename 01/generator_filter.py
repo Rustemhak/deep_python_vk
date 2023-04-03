@@ -10,7 +10,7 @@ def read_file_with_filter(file, search_words=None):
         file = open(file, 'r', encoding='utf-8')
 
     with file as file_obj:
-        for line in file_obj.readlines():
+        for line in file_obj:
             clear_line = line.rstrip(os.linesep)
             if search_words:
                 line_words_set = set(x.lower() for x in clear_line.split(' '))
