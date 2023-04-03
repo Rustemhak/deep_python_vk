@@ -1,10 +1,9 @@
 class CustomList(list):
-    @staticmethod
-    def operation_lists(first, second, add=True, right=False):
+    def operation_lists(self, second, add=True, right=False):
         new_list = []
-        max_length = max(len(first), len(second))
+        max_length = max(len(self), len(second))
         for i in range(max_length):
-            left_el = first[i] if i < len(first) else 0
+            left_el = self[i] if i < len(self) else 0
             right_el = second[i] if i < len(second) else 0
             if add:
                 new_list.append(left_el + right_el)
@@ -16,18 +15,18 @@ class CustomList(list):
         return new_list
 
     def __add__(self, other):
-        result = self.operation_lists(self, other)
+        result = self.operation_lists(other)
         return CustomList(result)
 
     def __radd__(self, other):
         return self.__add__(other)
 
     def __sub__(self, other):
-        result = self.operation_lists(self, other, add=False, right=False)
+        result = self.operation_lists(other, add=False, right=False)
         return CustomList(result)
 
     def __rsub__(self, other):
-        result = self.operation_lists(self, other, add=False, right=True)
+        result = self.operation_lists(other, add=False, right=True)
         return CustomList(result)
 
     def __eq__(self, other):
