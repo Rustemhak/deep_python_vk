@@ -4,47 +4,59 @@ from custom_list import CustomList
 
 class TestClass(unittest.TestCase):
     def test_operations(self):
-        self.assertEqual(
-            CustomList([5, 1, 3, 7]) - CustomList([1, 2, 7]),
-            CustomList([4, -1, -4, 7])
-        )
-        self.assertEqual(
-            CustomList([5, 1, 3, 7]) + CustomList([1, 2, 7]),
-            CustomList([6, 3, 10, 7])
-        )
+        cl_a = CustomList([5, 1, 3, 7])
+        cl_b = CustomList([1, 2, 7])
+        cl_c = cl_a - cl_b
+        self.assertListEqual(list(cl_c), [4, -1, -4, 7])
+        self.assertListEqual(list(cl_a), [5, 1, 3, 7])
+        self.assertListEqual(list(cl_b), [1, 2, 7])
 
-        self.assertEqual([1, 2] + CustomList([3, 4]), CustomList([4, 6]))
-        self.assertEqual(CustomList([3, 4]) + [1, 2], CustomList([4, 6]))
-        self.assertEqual([1, 2] - CustomList([3, 4]), CustomList([-2, -2]))
-        self.assertEqual(CustomList([3, 4]) - [1, 2], CustomList([2, 2]))
+        cl_a = CustomList([5, 1, 3, 7])
+        cl_b = CustomList([1, 2, 7])
+        cl_c = cl_a + cl_b
+        self.assertListEqual(list(cl_c), [6, 3, 10, 7])
+        self.assertListEqual(list(cl_a), [5, 1, 3, 7])
+        self.assertListEqual(list(cl_b), [1, 2, 7])
 
-        self.assertEqual([1, 2, 3] + CustomList([3, 4]), CustomList([4, 6, 3]))
-        self.assertEqual(CustomList([3]) + [1, 2], CustomList([4, 2]))
-        self.assertEqual([1, 2] - CustomList([3, 4, 10]),
-                         CustomList([-2, -2, -10]))
-        self.assertEqual(CustomList([3, 4]) - [1], CustomList([2, 4]))
-        self.assertEqual(CustomList([3, 4]) + [], CustomList([3, 4]))
-        self.assertEqual([] - CustomList([3, 4]), CustomList([-3, -4]))
+        l_a = [1, 2]
+        cl_b = CustomList([3, 4])
+        cl_c = l_a + cl_b
+        self.assertListEqual(list(cl_c), [4, 6])
 
-        l_1, l_2 = CustomList([5, 1, 3, 7]), CustomList([1, 2, 7])
-        l_3 = l_1 - l_2
-        for i, j in zip(l_3, CustomList([4, -1, -4, 7])):
-            self.assertEqual(i, j)
+        l_a = [1, 2]
+        cl_b = CustomList([3, 4])
+        cl_c = l_a - cl_b
+        self.assertListEqual(list(cl_c), [-2, -2])
 
-        l_1, l_2 = CustomList([5, 1, 3, 7]), CustomList([1, 2, 7])
-        l_3 = l_1 + l_2
-        for i, j in zip(l_3, CustomList([6, 3, 10, 7])):
-            self.assertEqual(i, j)
+        l_a = [1, 2, 3]
+        cl_b = CustomList([3, 4])
+        cl_c = l_a + cl_b
+        self.assertListEqual(list(cl_c), [4, 6, 3])
 
-        l_1, l_2 = [1, 2], CustomList([3, 4])
-        l_3 = l_1 + l_2
-        for i, j in zip(l_3, CustomList([4, 6])):
-            self.assertEqual(i, j)
+        cl_a = CustomList([3])
+        l_b = [1, 2]
+        cl_c = cl_a + l_b
+        self.assertListEqual(list(cl_c), [4, 2])
 
-        l_1, l_2 = [1, 2], CustomList([3, 4])
-        l_3 = l_1 - l_2
-        for i, j in zip(l_3, CustomList([-2, -2])):
-            self.assertEqual(i, j)
+        l_a = [1, 2]
+        cl_b = CustomList([3, 4, 10])
+        cl_c = l_a - cl_b
+        self.assertListEqual(list(cl_c), [-2, -2, -10])
+
+        cl_a = CustomList([3, 4])
+        l_b = [1]
+        cl_c = cl_a - l_b
+        self.assertListEqual(list(cl_c), [2, 4])
+
+        cl_a = CustomList([3, 4])
+        l_b = []
+        cl_c = cl_a + l_b
+        self.assertListEqual(list(cl_c), [3, 4])
+
+        l_a = []
+        cl_b = CustomList([3, 4])
+        cl_c = l_a - cl_b
+        self.assertListEqual(list(cl_c), [-3, -4])
 
     def test_types(self):
         self.assertIsInstance(
@@ -64,16 +76,23 @@ class TestClass(unittest.TestCase):
         self.assertTrue(CustomList([5, 7]) >= CustomList([12]))
 
     def test_invariability(self):
-        l_1, l_2 = CustomList([5, 1, 3, 7]), CustomList([1, 2, 7])
-        l_3 = l_1 + l_2
-        self.assertEqual(l_1, CustomList([5, 1, 3, 7]))
-        self.assertEqual(l_2, CustomList([1, 2, 7]))
-        self.assertEqual(l_3, CustomList([6, 3, 10, 7]))
-        for i, j in zip(l_1, CustomList([5, 1, 3, 7])):
-            self.assertEqual(i, j)
-        for i, j in zip(l_2, CustomList([1, 2, 7])):
-            self.assertEqual(i, j)
+        cl_a = CustomList([5, 1, 3, 7])
+        cl_b = CustomList([1, 2, 7])
+        cl_c = cl_a + cl_b
+        self.assertListEqual(list(cl_a), [5, 1, 3, 7])
+        self.assertListEqual(list(cl_b), [1, 2, 7])
+        self.assertListEqual(list(cl_c), [6, 3, 10, 7])
+
+        cl_a = CustomList([5, 1, 3, 7])
+        cl_b = CustomList([1, 2, 7])
+        cl_c = cl_a - cl_b
+        self.assertListEqual(list(cl_a), [5, 1, 3, 7])
+        self.assertListEqual(list(cl_b), [1, 2, 7])
+        self.assertListEqual(list(cl_c), [4, -1, -4, 7])
 
     def test_str(self):
         self.assertEqual(str(CustomList([5, 1, 3, 7])), "[5, 1, 3, 7], 16")
         self.assertEqual(str(CustomList()), "[], 0")
+
+    if __name__ == '__main__':
+        unittest.main()
