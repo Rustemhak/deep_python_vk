@@ -30,6 +30,11 @@ class TestCustomClass(unittest.TestCase):
     def test_str(self):
         self.assertEqual(str(self.inst), "Custom_by_metaclass")
 
+    def test_square(self):
+        self.assertEqual(self.inst.custom_square(), 99 ** 2)
+        with self.assertRaises(AttributeError):
+            print(CustomClass.square)
+
     def test_dynamic(self):
         self.inst.dynamic = 'added later'
 
