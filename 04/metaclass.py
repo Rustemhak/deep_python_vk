@@ -30,6 +30,10 @@ class CustomMeta(type):
 class CustomClass(metaclass=CustomMeta):
     x = 50
 
+    @classmethod
+    def multiply_x(cls, n):
+        return cls.custom_x * n
+
     def __init__(self, val=99):
         self.val = val
 

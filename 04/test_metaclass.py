@@ -35,6 +35,14 @@ class TestCustomClass(unittest.TestCase):
         with self.assertRaises(AttributeError):
             print(CustomClass.square)
 
+    def test_multiply_x(self):
+        self.assertEqual(CustomClass.custom_multiply_x(3), 150)
+        self.assertEqual(self.inst.custom_multiply_x(2), 100)
+        with self.assertRaises(AttributeError):
+            print(self.inst.multiply_x)
+        with self.assertRaises(AttributeError):
+            print(CustomClass.multiply_x)
+
     def test_dynamic(self):
         self.inst.dynamic = 'added later'
 
