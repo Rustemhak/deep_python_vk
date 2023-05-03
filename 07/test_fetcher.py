@@ -1,9 +1,9 @@
 import os
 
 import unittest
+from unittest.mock import patch
 import asyncio
 import aiohttp
-
 from fetcher import get_urls, fetch_url, fetch_batch_urls
 
 
@@ -32,25 +32,36 @@ class TestFetcher(unittest.TestCase):
         async with aiohttp.ClientSession() as session:
             return await fetch_url(url, session, 0)
 
-    def test_fetch_url(self):
+    @patch("aiohttp.ClientSession.get")
+    def test_fetch_url(self, mock_get):
+        mock_get.return_value.__aenter__.return_value.status = 200
+        mock_get.return_value.__aenter__.return_value.read = asyncio.coroutine(
+            lambda: b"dummy content"
+        )
+
         url = self.test_urls[0]
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
-        status, length, num = loop.run_until_complete(self.async_fetch_url(url))
+        status, length, num = loop.run_until_complete(
+            self.async_fetch_url(url)
+        )
         self.assertEqual(status, 200)
         self.assertGreater(length, 0)
         self.assertEqual(num, 0)
 
-    async def async_fetch_batch_urls(self, queue, workers):
-        return await fetch_batch_urls(queue, workers)
+    @patch("aiohttp.ClientSession.get")
+    def test_fetch_batch_urls(self, mock_get):
+        mock_get.return_value.__aenter__.return_value.status = 200
+        mock_get.return_value.__aenter__.return_value.read = asyncio.coroutine(
+            lambda: b"dummy content"
+        )
 
-    def test_fetch_batch_urls(self):
         loop = asyncio.new_event_loop()
         asyncio.set_event_loop(loop)
         queue = asyncio.Queue()
         for url in self.test_urls:
             loop.run_until_complete(queue.put(url))
-        loop.run_until_complete(self.async_fetch_batch_urls(queue, 3))
+        loop.run_until_complete(fetch_batch_urls(queue, 3))
 
 
 if __name__ == "__main__":
