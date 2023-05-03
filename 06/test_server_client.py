@@ -1,5 +1,5 @@
-"""module for testing server / client"""
 import unittest
+from unittest.mock import patch
 
 from server import Server
 from client import Client
@@ -9,7 +9,7 @@ FILE_TMP = "urls_test.txt"
 ADDRESS = "https://www.ya.ru"
 
 
-class TestLRUCache(unittest.TestCase):
+class TestServerClient(unittest.TestCase):
     def test_connection_settings(self):
         server = Server(10, 7)
         client = Client(10, "urls.txt")
@@ -40,8 +40,41 @@ class TestLRUCache(unittest.TestCase):
         real_urls = TEXT_TMP.split("\n")
         assert urls_from_client == real_urls
 
-    def test_request_processing(self):
-        k = 7
-        server = Server(10, 7)
-        result = server.get_most_common_words(ADDRESS)
-        assert k == len(result)
+    def setUp(self):
+        self.server = Server(1, 5)
+
+    def test_get_most_common_words_with_mock(self):
+        fake_html = """
+        <html>
+        <head>
+            <title>Test Page</title>
+        </head>
+        <body>
+            <p>This is a test page with some words for testing purposes.</p>
+            <p>These words should appear in the most common words list.</p>
+        </body>
+        </html>
+        """
+
+        def mock_urlopen(*args, **kwargs):
+            class MockResponse:
+                def read(self):
+                    return fake_html.encode()
+
+                def __enter__(self):
+                    return self
+
+                def __exit__(self, *args, **kwargs):
+                    pass
+
+            return MockResponse()
+
+        with patch("server.urlopen", side_effect=mock_urlopen):
+            most_common_words = self.server.\
+                get_most_common_words("https://example.com")
+
+            self.assertEqual(most_common_words, [('words', 3),
+                                                 ('test', 2),
+                                                 ('page', 2),
+                                                 ('this', 1),
+                                                 ('is', 1)])

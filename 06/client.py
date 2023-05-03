@@ -38,7 +38,7 @@ class Client:
         urls = self.get_urls()
 
         threads = [
-            threading.Thread(target=self.process, args=(chunk,),)
+            threading.Thread(target=self.process, args=(chunk,), )
             for chunk in self.chunks(urls, self.n_threads)
         ]
 
@@ -59,13 +59,16 @@ class Client:
             yield lst[start:stop]
             start = stop
 
+    def send_and_receive(self, url):
+        self.client_socket.send(url.encode())
+        data = self.client_socket.recv(1024).decode()
+        if data:
+            print(data, flush=True)
+
     def process(self, urls):
         """recv send"""
         for url in urls:
-            self.client_socket.send(url.encode())
-            data = self.client_socket.recv(1024).decode()
-            if data:
-                print(data, flush=True)
+            self.send_and_receive(url)
 
 
 @click.command()
