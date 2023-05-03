@@ -1,0 +1,354 @@
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    43     20.4 MiB     20.4 MiB           1   @profile
+    44                                         def common_create():
+    45                                             """Create instances of Common_class."""
+    46     20.4 MiB      0.0 MiB           1       commons = []
+    47     47.0 MiB      0.0 MiB      100501       for i in range(100500):
+    48     47.0 MiB     24.8 MiB      100500           com = Common_class(Plug_1(), Plug_2())
+    49     47.0 MiB      1.8 MiB      100500           commons.append(com)
+    50
+    51     47.0 MiB      0.0 MiB           1       return commons
+
+
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    54     47.0 MiB     47.0 MiB           1   @profile
+    55                                         def slot_create():
+    56                                             """Create instances of Slot_class."""
+    57     47.0 MiB      0.0 MiB           1       slots = []
+    58
+    59     61.9 MiB  -1160.4 MiB      100501       for _ in range(100500):
+    60     61.9 MiB  -1160.4 MiB      100500           slot = Slot_class()
+    61     61.9 MiB  -1146.4 MiB      100500           slot.foo = Plug_1()
+    62     61.9 MiB  -1159.9 MiB      100500           slot.bar = Plug_2()
+    63     61.9 MiB  -1158.9 MiB      100500           slots.append(slot)
+    64
+    65     61.9 MiB      0.0 MiB           1       return slots
+
+
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    68     61.9 MiB     61.9 MiB           1   @profile
+    69                                         def weaks_create():
+    70                                             """Create instances of Weak_class."""
+    71     61.9 MiB      0.0 MiB           1       weaks = []
+    72
+    73     94.0 MiB      0.0 MiB      100501       for _ in range(100500):
+    74     94.0 MiB     31.3 MiB      100500           weak = Weak_class(Plug_1(), Plug_2())
+    75     94.0 MiB      0.8 MiB      100500           weaks.append(weak)
+    76
+    77     94.0 MiB      0.0 MiB           1       return weaks
+
+
+Time create common 5.445225715637207
+Time create slots 8.668343305587769
+Time create weaks 5.773745059967041
+
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    80     94.0 MiB     94.0 MiB           1   @profile
+    81                                         def df_access(list_classes):
+    82                                             """Access attributes of instances in a list."""
+    83     94.0 MiB      0.0 MiB           1       result = 0
+    84     94.0 MiB      0.0 MiB      100501       for element in list_classes:
+    85     94.0 MiB      0.0 MiB      100500           if element.foo and element.bar:
+    86     94.0 MiB      0.0 MiB      100500               result += 1
+
+
+Time access common 5.261380434036255
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    80     94.0 MiB     94.0 MiB           1   @profile
+    81                                         def df_access(list_classes):
+    82                                             """Access attributes of instances in a list."""
+    83     94.0 MiB      0.0 MiB           1       result = 0
+    84     94.0 MiB      0.0 MiB      100501       for element in list_classes:
+    85     94.0 MiB      0.0 MiB      100500           if element.foo and element.bar:
+    86     94.0 MiB      0.0 MiB      100500               result += 1
+
+
+Time access slots 6.36484956741333
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    80     94.0 MiB     94.0 MiB           1   @profile
+    81                                         def df_access(list_classes):
+    82                                             """Access attributes of instances in a list."""
+    83     94.0 MiB      0.0 MiB           1       result = 0
+    84     94.0 MiB      0.0 MiB      100501       for element in list_classes:
+    85     94.0 MiB      0.0 MiB      100500           if element.foo and element.bar:
+    86     94.0 MiB      0.0 MiB      100500               result += 1
+
+
+Time access weaks 8.809478521347046
+
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    89     94.1 MiB     94.1 MiB           1   @profile
+    90                                         def df_change(list_classes):
+    91                                             """Swap the values of two attributes for instances in a list."""
+    92     94.1 MiB      0.0 MiB      100501       for element in list_classes:
+    93     94.1 MiB      0.0 MiB      100500           element.foo, element.bar = element.bar, element.foo
+
+
+Time change common 3.8646769523620605
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    89     94.1 MiB     94.1 MiB           1   @profile
+    90                                         def df_change(list_classes):
+    91                                             """Swap the values of two attributes for instances in a list."""
+    92     94.1 MiB      0.0 MiB      100501       for element in list_classes:
+    93     94.1 MiB      0.0 MiB      100500           element.foo, element.bar = element.bar, element.foo
+
+
+Time change slots 3.467665195465088
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    89     94.1 MiB     94.1 MiB           1   @profile
+    90                                         def df_change(list_classes):
+    91                                             """Swap the values of two attributes for instances in a list."""
+    92     94.1 MiB      0.0 MiB      100501       for element in list_classes:
+    93     94.1 MiB      0.0 MiB      100500           element.foo, element.bar = element.bar, element.foo
+
+
+Time change weaks 3.026376485824585
+
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    96     94.1 MiB     94.1 MiB           1   @profile
+    97                                         def df_delete(list_classes):
+    98                                             """Delete attributes for instances in a list."""
+    99    111.2 MiB      0.0 MiB      100501       for element in list_classes:
+   100    111.2 MiB     17.1 MiB      100500           del element.bar
+   101    111.2 MiB      0.0 MiB      100500           del element.foo
+
+
+Time delete common 4.924310207366943
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    96    111.2 MiB    111.2 MiB           1   @profile
+    97                                         def df_delete(list_classes):
+    98                                             """Delete attributes for instances in a list."""
+    99    111.2 MiB  -1363.4 MiB      100501       for element in list_classes:
+   100    111.2 MiB  -1363.4 MiB      100500           del element.bar
+   101    111.2 MiB  -1363.4 MiB      100500           del element.foo
+
+
+Time delete slots 5.446432828903198
+Filename: D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+    96    111.1 MiB    111.1 MiB           1   @profile
+    97                                         def df_delete(list_classes):
+    98                                             """Delete attributes for instances in a list."""
+    99    112.4 MiB      0.0 MiB      100501       for element in list_classes:
+   100    112.4 MiB      1.3 MiB      100500           del element.bar
+   101    112.4 MiB      0.0 MiB      100500           del element.foo
+
+
+Time delete weaks 4.1724607944488525
+         542920 function calls (541762 primitive calls) in 65.221 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   65.221   65.221 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:112(main)
+       12    0.000    0.000   65.221    5.435 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:104(get_result)
+       12    0.000    0.000   65.221    5.435 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:1185(wrapper)
+       12    0.000    0.000   65.163    5.430 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:759(f)
+        3   20.431    6.810   20.431    6.810 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:80(df_access)
+        3   14.541    4.847   14.541    4.847 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:96(df_delete)
+        3   10.356    3.452   10.356    3.452 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:89(df_change)
+        1    8.651    8.651    8.667    8.667 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:54(slot_create)
+        1    5.541    5.541    5.772    5.772 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:68(weaks_create)
+        1    5.216    5.216    5.393    5.393 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:43(common_create)
+   100500    0.221    0.000    0.221    0.000 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:28(__init__)
+   100500    0.166    0.000    0.166    0.000 D:\PycharmProjects\deep_python_vk\08\comparing_weakref_slots.py:15(__init__)
+       12    0.000    0.000    0.056    0.005 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:713(__call__)
+       12    0.000    0.000    0.056    0.005 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:728(add_function)
+       12    0.000    0.000    0.056    0.005 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:645(add)
+       12    0.000    0.000    0.055    0.005 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:997(getsourcelines)
+       12    0.000    0.000    0.039    0.003 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:809(findsource)
+   304756    0.038    0.000    0.038    0.000 {method 'append' of 'list' objects}
+       12    0.001    0.000    0.036    0.003 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:727(getmodule)
+      142    0.001    0.000    0.024    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:625(realpath)
+      284    0.019    0.000    0.019    0.000 {built-in method nt._getfinalpathname}
+       12    0.001    0.000    0.015    0.001 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:986(getblock)
+      542    0.002    0.000    0.014    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:429(_tokenize)
+      143    0.000    0.000    0.011    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:715(getabsfile)
+      471    0.000    0.000    0.011    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\re.py:250(compile)
+      471    0.001    0.000    0.010    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\re.py:289(_compile)
+      459    0.000    0.000    0.010    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:98(_compile)
+        3    0.000    0.000    0.009    0.003 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:783(compile)
+      154    0.001    0.000    0.008    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:693(getsourcefile)
+      170    0.007    0.000    0.007    0.000 {built-in method nt.stat}
+      158    0.000    0.000    0.006    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\genericpath.py:16(exists)
+        3    0.000    0.000    0.006    0.002 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:944(parse)
+     56/3    0.000    0.000    0.006    0.002 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:436(_parse_sub)
+    226/6    0.002    0.000    0.006    0.001 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:494(_parse)
+      285    0.003    0.000    0.005    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:450(normpath)
+      143    0.000    0.000    0.003    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:524(abspath)
+        3    0.000    0.000    0.003    0.001 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:622(_code)
+    287/3    0.001    0.000    0.003    0.001 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:87(_compile)
+       12    0.000    0.000    0.001    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:853(show_results)
+      427    0.001    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:124(splitdrive)
+      473    0.001    0.000    0.001    0.000 {method 'match' of 're.Pattern' objects}
+      427    0.001    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:44(normcase)
+6282/5963    0.001    0.000    0.001    0.000 {built-in method builtins.len}
+      142    0.000    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:61(isabs)
+   312/30    0.001    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:175(getwidth)
+     1585    0.001    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:165(__getitem__)
+       26    0.000    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:97(closegroup)
+      308    0.000    0.000    0.001    0.000 {built-in method builtins.any}
+      530    0.001    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:936(tokeneater)
+       24    0.000    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\linecache.py:36(getlines)
+     4257    0.001    0.000    0.001    0.000 {built-in method builtins.isinstance}
+        1    0.000    0.000    0.001    0.001 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\linecache.py:80(updatecache)
+      692    0.000    0.000    0.001    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:255(get)
+      133    0.001    0.000    0.001    0.000 {method 'write' of '_io.TextIOWrapper' objects}
+      285    0.000    0.000    0.000    0.000 {method 'split' of 'str' objects}
+      162    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:655(getfile)
+       61    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:292(_optimize_charset)
+      984    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:234(__next)
+     1139    0.000    0.000    0.000    0.000 {method 'startswith' of 'str' objects}
+      221    0.000    0.000    0.000    0.000 {method 'format' of 'str' objects}
+      530    0.000    0.000    0.000    0.000 <string>:1(<lambda>)
+       24    0.000    0.000    0.000    0.000 {built-in method builtins.next}
+      459    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\types.py:171(__get__)
+      384    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:64(ismodule)
+      530    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:250(match)
+      462    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:700(<genexpr>)
+       24    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:740(_count_ctxmgr)
+      220    0.000    0.000    0.000    0.000 {built-in method builtins.hasattr}
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\linecache.py:52(checkcache)
+      457    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:173(append)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\contextlib.py:123(__exit__)
+      143    0.000    0.000    0.000    0.000 {built-in method nt._getfullpathname}
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:702(__init__)
+      496    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:161(__len__)
+        1    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:388(open)
+      765    0.000    0.000    0.000    0.000 {built-in method builtins.min}
+     1281    0.000    0.000    0.000    0.000 {method 'replace' of 'str' objects}
+      462    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:703(<genexpr>)
+     1281    0.000    0.000    0.000    0.000 {built-in method nt.fspath}
+      629    0.000    0.000    0.000    0.000 {method 'endswith' of 'str' objects}
+       53    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:433(_uniq)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\contextlib.py:114(__enter__)
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:748(wrap_function)
+      285    0.000    0.000    0.000    0.000 {method 'join' of 'str' objects}
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\asyncio\coroutines.py:164(iscoroutinefunction)
+       15    0.000    0.000    0.000    0.000 {built-in method builtins.print}
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:1201(choose_backend)
+      142    0.000    0.000    0.000    0.000 {built-in method nt.getcwd}
+      226    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:287(tell)
+        1    0.000    0.000    0.000    0.000 {method 'readlines' of '_io._IOBase' objects}
+      530    0.000    0.000    0.000    0.000 {built-in method __new__ of type object at 0x00007FFFB1224C60}
+       65    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:447(_simple)
+      314    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:112(__init__)
+       56    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:356(_escape)
+       53    0.000    0.000    0.000    0.000 {built-in method fromkeys}
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:775(enable_by_count)
+      427    0.000    0.000    0.000    0.000 {method 'lower' of 'str' objects}
+       61    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:265(_compile_charset)
+      406    0.000    0.000    0.000    0.000 {method 'get' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {built-in method io.open}
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:782(disable_by_count)
+        3    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:560(_compile_info)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:190(iscoroutinefunction)
+      285    0.000    0.000    0.000    0.000 {method 'lstrip' of 'str' objects}
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\contextlib.py:261(helper)
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:842(enable)
+      142    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\ntpath.py:34(_get_bothseps)
+        1    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:295(detect_encoding)
+      447    0.000    0.000    0.000    0.000 {method 'span' of 're.Match' objects}
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:172(_has_code_flag)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:494(unwrap)
+      459    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\enum.py:792(value)
+       26    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:85(opengroup)
+       97    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:695(<genexpr>)
+      346    0.000    0.000    0.000    0.000 {method 'isidentifier' of 'str' objects}
+      211    0.000    0.000    0.000    0.000 {method 'find' of 'bytearray' objects}
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\contextlib.py:86(__init__)
+        6    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:435(_mk_bitmap)
+      398    0.000    0.000    0.000    0.000 {built-in method builtins.ord}
+      186    0.000    0.000    0.000    0.000 {built-in method builtins.getattr}
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:849(disable)
+      191    0.000    0.000    0.000    0.000 {built-in method builtins.max}
+       24    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:689(items)
+        1    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:319(read_or_stop)
+        2    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\codecs.py:319(decode)
+        3    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\enum.py:977(__and__)
+       54    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:261(iscode)
+        1    0.000    0.000    0.000    0.000 {method 'readline' of '_io.BufferedReader' objects}
+       24    0.000    0.000    0.000    0.000 {built-in method sys.settrace}
+        1    0.000    0.000    0.000    0.000 {method '__exit__' of '_io._IOBase' objects}
+       59    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:82(groups)
+       67    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:169(__setitem__)
+        6    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:437(<listcomp>)
+       36    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:159(isfunction)
+       36    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:81(ismethod)
+        3    0.000    0.000    0.000    0.000 {built-in method _sre.compile}
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:926(__init__)
+       72    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:1215(<genexpr>)
+       24    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:73(isclass)
+        6    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\enum.py:358(__call__)
+       24    0.000    0.000    0.000    0.000 {built-in method time.time}
+       36    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:237(istraceback)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:511(_is_wrapper)
+       36    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\inspect.py:247(isframe)
+       14    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:296(_class_escape)
+        3    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:225(__init__)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:612(generate_tokens)
+       26    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:81(_combine_flags)
+        1    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\tokenize.py:325(find_cookie)
+       12    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\venv\lib\site-packages\memory_profiler.py:640(__init__)
+       12    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\functools.py:420(_unwrap_partial)
+        1    0.000    0.000    0.000    0.000 {method 'startswith' of 'bytes' objects}
+       12    0.000    0.000    0.000    0.000 {method 'update' of 'dict' objects}
+       19    0.000    0.000    0.000    0.000 {method 'insert' of 'list' objects}
+        6    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:619(isstring)
+       12    0.000    0.000    0.000    0.000 {method 'pop' of 'list' objects}
+       12    0.000    0.000    0.000    0.000 {built-in method sys.getrecursionlimit}
+        6    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\enum.py:670(__new__)
+        2    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:516(_get_charset_prefix)
+        1    0.000    0.000    0.000    0.000 {method 'copy' of 'dict' objects}
+       12    0.000    0.000    0.000    0.000 {built-in method sys.gettrace}
+        3    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:928(fix_flags)
+        2    0.000    0.000    0.000    0.000 {built-in method _codecs.utf_8_decode}
+       12    0.000    0.000    0.000    0.000 {built-in method builtins.iter}
+        1    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\codecs.py:309(__init__)
+        2    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:485(_get_literal_prefix)
+        3    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_parse.py:76(__init__)
+        6    0.000    0.000    0.000    0.000 {method 'translate' of 'bytearray' objects}
+       12    0.000    0.000    0.000    0.000 {built-in method builtins.id}
+        8    0.000    0.000    0.000    0.000 {method 'extend' of 'list' objects}
+       12    0.000    0.000    0.000    0.000 {method 'end' of 're.Match' objects}
+        4    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\sre_compile.py:477(_get_iscased)
+        1    0.000    0.000    0.000    0.000 C:\Users\rukis\AppData\Local\Programs\Python\Python39\lib\codecs.py:260(__init__)
+        4    0.000    0.000    0.000    0.000 {method 'items' of 'dict' objects}
+        1    0.000    0.000    0.000    0.000 {method 'seek' of '_io.BufferedReader' objects}
+        1    0.000    0.000    0.000    0.000 {method 'decode' of 'bytes' objects}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}

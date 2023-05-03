@@ -1,0 +1,17 @@
+         2 function calls in 0.000 seconds
+
+   Random listing order was used
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\08\profile_decorator.py:32(add)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+
+         2 function calls in 0.000 seconds
+
+   Random listing order was used
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000    0.000    0.000 D:\PycharmProjects\deep_python_vk\08\profile_decorator.py:32(add)
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
