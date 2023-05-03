@@ -98,3 +98,18 @@ class TestLRUCache(unittest.TestCase):
         cache.set("k1", "val1_1")
 
         self.assertEqual(cache.get("k1"), "val1_1")
+
+    def test_update_existing_key(self):
+        """test updating the value of an existing key and
+         the consequences of inserting a new element"""
+
+        cache = LRUCache(2)
+
+        cache.set("k1", "val1")
+        cache.set("k2", "val2")
+        cache.set("k1", "val1_1")
+
+        cache.set("k3", "val3")
+        self.assertEqual(cache.get("k3"), "val3")
+        self.assertIsNone(cache.get("k2"))
+        self.assertEqual(cache.get("k1"), "val1_1")
