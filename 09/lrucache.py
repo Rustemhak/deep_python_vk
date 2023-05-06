@@ -1,12 +1,19 @@
-"""Module for algorithm for storing a limited amount of data"""
-
 import sys
 import logging.config
+import re
+
+
+class EvenWordFilter(logging.Filter):
+    def filter(self, record):
+        word_count = len(re.findall(r'\w+', record.getMessage()))
+        return word_count % 2 != 0
+
 
 log_conf = {
     "version": 1,
     "formatters": {
-        "simple": {"format": "%(asctime)s\t%(levelname)s\t%(name)s\t%(message)s",},
+        "simple": {"format": "%(asctime)s\t%(levelname)s"
+                             "\t%(name)s\t%(message)s", },
         "processed": {
             "format": "%(asctime)s\t%(levelname)s\t--%(name)s--\t%(message)s",
         },
@@ -25,17 +32,23 @@ log_conf = {
         },
     },
     "loggers": {
-        "": {"level": "INFO", "handlers": ["file_handler"],},
-        "add_stream": {"level": "DEBUG", "handlers": ["stream_handler"],},
+        "": {"level": "INFO", "handlers": ["file_handler"], },
+        "add_stream": {"level": "DEBUG", "handlers": ["stream_handler"], },
     },
 }
 
 logging.config.dictConfig(log_conf)
 
-if len(sys.argv) > 1 and sys.argv[1] == "-s":
-    root_logger = logging.getLogger("add_stream")
-else:
-    root_logger = logging.getLogger()
+root_logger = logging.getLogger()
+STREAM_LOGGER = None
+if "-s" in sys.argv:
+    STREAM_LOGGER = logging.getLogger("add_stream")
+
+if "-f" in sys.argv:
+    even_word_filter = EvenWordFilter()
+    root_logger.addFilter(even_word_filter)
+    if STREAM_LOGGER:
+        STREAM_LOGGER.addFilter(even_word_filter)
 
 
 class ListNode:
