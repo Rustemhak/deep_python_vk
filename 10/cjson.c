@@ -82,19 +82,16 @@ static PyObject* cjson_loads(PyObject* self, PyObject* args) {
     char* json_str;
     Py_ssize_t json_len;
 
-    // Parse arguments
     if (!PyArg_ParseTuple(args, "s#", &json_str, &json_len)) {
         return NULL;
     }
 
-    // Create a new Python dictionary object
     PyObject *py_dict = NULL;
 	if (!(py_dict = PyDict_New())) {
 	    printf("ERROR: Failed to create Dict Object\n");
 	    return NULL;
 	}
 
-    // Parse the JSON string
     char* key = NULL;
     char* value = NULL;
     int in_key = 0;
