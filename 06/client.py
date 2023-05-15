@@ -1,5 +1,5 @@
 """Module client"""
-
+import itertools
 import sys
 import socket
 import threading
@@ -13,18 +13,14 @@ class Client:
     def __init__(self, n_threads, file):
         self.n_threads = n_threads
         self.file = file
-        self.host = socket.gethostname()
+        self.host = "localhost"
         self.port = 5000
-        self.client_socket = None
 
     def get_urls(self):
-        """get urls"""
-        urls = []
+        """get urls generator"""
         with open(self.file, "r", encoding="utf-8") as filed:
-            for line in filed.readlines():
-                urls.append(line)
-
-        return urls
+            for line in filed:
+                yield line.strip()
 
     def get_client_socket(self):
         """create connect"""
@@ -32,9 +28,20 @@ class Client:
         client_socket.connect((self.host, self.port))
         return client_socket
 
+    def process(self, urls):
+        """recv send"""
+        for url in urls:
+            with self.get_client_socket() as client_socket:
+                try:
+                    client_socket.send(url.encode())
+                    data = client_socket.recv(1024).decode()
+                    if data:
+                        print(data, flush=True)
+                except Exception as exception:
+                    print(f"Error processing {url}: {exception}", flush=True)
+
     def start(self):
         """start client"""
-        self.client_socket = self.get_client_socket()
         urls = self.get_urls()
 
         threads = [
@@ -48,27 +55,14 @@ class Client:
         for thread in threads:
             thread.join()
 
-        self.client_socket.close()
-
-    @classmethod
-    def chunks(cls, lst, count):
+    @staticmethod
+    def chunks(iterable, count):
         """create generator"""
-        start = 0
-        for i in range(count):
-            stop = start + len(lst[i::count])
-            yield lst[start:stop]
-            start = stop
-
-    def send_and_receive(self, url):
-        self.client_socket.send(url.encode())
-        data = self.client_socket.recv(1024).decode()
-        if data:
-            print(data, flush=True)
-
-    def process(self, urls):
-        """recv send"""
-        for url in urls:
-            self.send_and_receive(url)
+        it_ = iter(iterable)
+        item = list(itertools.islice(it_, count))
+        while item:
+            yield item
+            item = list(itertools.islice(it_, count))
 
 
 @click.command()
