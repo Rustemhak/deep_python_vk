@@ -18,3 +18,13 @@
 2023-05-22 01:34:42,404	INFO	root	Get value from cache
 2023-05-22 01:34:42,404	INFO	root	Get value from cache
 2023-05-22 01:34:42,404	INFO	root	Set value to cache
+2023-05-22 01:40:04,589	INFO	root	Set value to cache
+2023-05-22 01:40:04,589	INFO	root	Set value to cache
+2023-05-22 01:40:04,590	INFO	root	Value not in cache
+2023-05-22 01:40:04,590	INFO	root	Get value from cache
+2023-05-22 01:40:04,591	INFO	root	Get value from cache
+2023-05-22 01:40:04,592	INFO	root	Set value to cache
+2023-05-22 01:40:04,592	INFO	root	Get value from cache
+2023-05-22 01:40:04,593	INFO	root	Get value from cache
+2023-05-22 01:40:04,594	INFO	root	Get value from cache
+2023-05-22 01:40:04,594	INFO	root	Set value to cache

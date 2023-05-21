@@ -5,7 +5,7 @@ import re
 
 class EvenWordFilter(logging.Filter):
     def filter(self, record):
-        word_count = len(re.findall(r'\w+', record.getMessage()))
+        word_count = len(re.findall(r"\w+", record.getMessage()))
         return word_count % 2 != 0
 
 
@@ -13,10 +13,13 @@ def configure_logger():
     log_conf = {
         "version": 1,
         "formatters": {
-            "simple": {"format": "%(asctime)s\t%(levelname)s"
-                                 "\t%(name)s\t%(message)s", },
+            "simple": {
+                "format": "%(asctime)s\t%(levelname)s"
+                          "\t%(name)s\t%(message)s",
+            },
             "processed": {
-                "format": "%(asctime)s\t%(levelname)s\t--%(name)s--\t%(message)s",
+                "format": "%(asctime)s\t%(levelname)s\t--%(name)s--"
+                          "\t%(message)s",
             },
         },
         "handlers": {
@@ -32,10 +35,7 @@ def configure_logger():
                 "formatter": "processed",
             },
         },
-        "root": {
-            "level": "DEBUG",
-            "handlers": ["file_handler"],
-        },
+        "root": {"level": "DEBUG", "handlers": ["file_handler"]},
     }
 
     logging.config.dictConfig(log_conf)
@@ -43,7 +43,9 @@ def configure_logger():
 
     if "-s" in sys.argv:
         stream_handler = logging.StreamHandler()
-        stream_handler.setFormatter(logging.Formatter(log_conf["formatters"]["processed"]["format"]))
+        stream_handler.setFormatter(
+            logging.Formatter(log_conf["formatters"]["processed"]["format"])
+        )
         logging.getLogger().addHandler(stream_handler)
 
     if "-f" in sys.argv:
