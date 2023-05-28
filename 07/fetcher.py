@@ -8,7 +8,7 @@ import aiohttp
 def get_urls(file):
     """get urls"""
     with open(file, "r", encoding="utf-8") as filed:
-        for line in filed.readlines():
+        for line in filed:
             yield line
 
 
